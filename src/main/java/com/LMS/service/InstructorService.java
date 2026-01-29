@@ -21,16 +21,10 @@ public class InstructorService {
     @Autowired
     private FirebaseStorageService firebaseStorageService;
 
-    public void addLesson(Long courseId, String title, String content, MultipartFile file,String instructorEmail) {
+    public void addLesson(Long courseId, String title, String content, MultipartFile file) {
 
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new RuntimeException("Course not found"));
-
-
-        if (course.getCreatedBy() == null ||
-                !course.getCreatedBy().equals(instructorEmail)) {
-            throw new RuntimeException("You are not allowed to add lessons to this course");
-        }
 
         if (file == null || file.isEmpty()) {
             throw new RuntimeException("Lesson file is required");
@@ -65,8 +59,6 @@ public class InstructorService {
             } else {
                 lesson.setContentType("FILE");
             }
-
-            course.getLessons().add(lesson);
 
             lessonRepository.save(lesson);
 

@@ -12,9 +12,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import org.springframework.security.core.Authentication;
-import org.springframework.ui.Model;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/instructor")
@@ -32,57 +29,17 @@ public class InstructorLessonController {
     private FirebaseStorageService firebaseStorageService;
 
 
-//    @PostMapping("/course/lesson")
-//    public String uploadLesson(
-//            @RequestParam Long courseId,
-//            @RequestParam String title,
-//            @RequestParam(required = false) String content,
-//            @RequestParam MultipartFile file) {
-//
-//        instructorService.addLesson(courseId, title, content, file);
-//
-//        return "redirect:/instructor/dashboard";
-//    }
-//@PostMapping("/course/lesson")
-//public String uploadLesson(
-//        @RequestParam Long courseId,
-//        @RequestParam String title,
-//        @RequestParam(required = false) String content,
-//        @RequestParam MultipartFile file,
-//        Authentication authentication,
-//        Model model) {
-//
-//    try {
-//        instructorService.addLesson(courseId, title, content, file, authentication.getName());
-//        return "redirect:/instructor/course/" + courseId;
-//
-//    } catch (Exception e) {
-//        model.addAttribute("error", e.getMessage());
-//        return "redirect:/instructor/course/" + courseId + "?error=true";
-//    }
-//}
-@PostMapping("/course/lesson")
-public String uploadLesson(
-        @RequestParam Long courseId,
-        @RequestParam String title,
-        @RequestParam(required = false) String content,
-        @RequestParam MultipartFile file,
-        Authentication authentication,
-        RedirectAttributes redirectAttributes) {
+    @PostMapping("/course/lesson")
+    public String uploadLesson(
+            @RequestParam Long courseId,
+            @RequestParam String title,
+            @RequestParam(required = false) String content,
+            @RequestParam MultipartFile file) {
 
-    try {
-        instructorService.addLesson(
-                courseId, title, content, file, authentication.getName()
-        );
-        return "redirect:/instructor/course/" + courseId;
+        instructorService.addLesson(courseId, title, content, file);
 
-    } catch (Exception e) {
-        redirectAttributes.addFlashAttribute("error", e.getMessage());
-        return "redirect:/instructor/course/" + courseId;
+        return "redirect:/instructor/dashboard";
     }
-}
-
-
     @GetMapping("/lesson/file/{courseId}")
     public void viewLessonFile(
             @PathVariable Long courseId,
