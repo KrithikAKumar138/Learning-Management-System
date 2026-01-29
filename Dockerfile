@@ -1,14 +1,21 @@
-# Use Java 17 (Render supports it well)
-FROM eclipse-temurin:17-jdk
-
-# Set working directory
+# ---------- Stage 1: Build ----------
+FROM maven:3.9.9-eclipse-temurin-17 AS build
 WORKDIR /app
 
-# Copy jar file
-COPY target/*.jar app.jar
+# Copy pom and download deps
+COPY pom.xml .
+RUN mvn dependency:go-offline
 
-# Expose port (Render uses 10000 internally)
-EXPOSE 10000
+# Copy source and build
+COPY src ./src
+RUN mvn clean package -DskipTests
 
-# Run Spring Boot
+# ---------- Stage 2: Run ----------
+FROM eclipse-temurin:17-jdk
+WORKDIR /app
+
+# Copy jar from build stage
+COPY --from=build /app/target/*.jar app.jar
+
+EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
