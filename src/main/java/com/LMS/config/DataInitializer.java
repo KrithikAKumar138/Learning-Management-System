@@ -64,41 +64,6 @@ public class DataInitializer {
                 System.out.println(" STUDENT user already exists");
             }
 
-
-//            if (courseRepository.count() == 0) {
-//                Course course1 = new Course("Agile Fundamentals in Tamil",
-//                        "Learn Agile methodologies in Tamil language", "instructor@lms.com");
-//                course1.setCategory("Project Management");
-//                course1.setApproved(true);
-//
-//                Course course2 = new Course("AWS Account, Navigation & Instances",
-//                        "Learn AWS fundamentals and instance management", "instructor@lms.com");
-//                course2.setCategory("Cloud Computing");
-//                course2.setApproved(true);
-//
-//                Course course3 = new Course("AWS Fundamentals",
-//                        "Basic AWS concepts in Tamil", "instructor@lms.com");
-//                course3.setCategory("Cloud Computing");
-//                course3.setApproved(true);
-//
-//                Course course4 = new Course("AWS Infrastructure for Beginners in Tamil",
-//                        "Learn AWS infrastructure basics", "instructor@lms.com");
-//                course4.setCategory("Cloud Computing");
-//                course4.setApproved(true);
-//
-//                Course course5 = new Course("GitLab",
-//                        "Learn GitLab for version control", "instructor@lms.com");
-//                course5.setCategory("Development Tools");
-//                course5.setApproved(true);
-//
-//                List<Course> courses = Arrays.asList(course1, course2, course3, course4, course5);
-//                courseRepository.saveAll(courses);
-//
-//                System.out.println("✓ Created 5 sample courses");
-//            } else {
-//                System.out.println("✓ Courses already exist: " + courseRepository.count());
-//            }
-
             System.out.println("=== Data Initialization Complete ===");
         };
     }
